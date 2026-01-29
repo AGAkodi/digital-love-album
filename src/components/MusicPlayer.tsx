@@ -1,56 +1,55 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Volume2, VolumeX, Music } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
+import backgroundMusic from '@/assets/background-music.mp3';
 
-interface MusicPlayerProps {
-  musicUrl?: string;
-}
-
-const MusicPlayer = ({ musicUrl }: MusicPlayerProps) => {
-  const [isMuted, setIsMuted] = useState(true);
+const MusicPlayer = () => {
+  const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (audioRef.current && musicUrl) {
-      audioRef.current.volume = 0.3;
+    if (audioRef.current) {
+      audioRef.current.volume = 0.15; // Low volume (15%)
+      
+      // Attempt autoplay
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(() => {
+            // Autoplay blocked by browser - user needs to interact
+            setAutoplayBlocked(true);
+          });
+      }
     }
-  }, [musicUrl]);
+  }, []);
 
   const toggleMute = () => {
     if (audioRef.current) {
-      if (isMuted) {
+      if (autoplayBlocked && !isPlaying) {
+        // First click after autoplay was blocked - start playing
         audioRef.current.play().then(() => {
           setIsPlaying(true);
+          setAutoplayBlocked(false);
           setIsMuted(false);
-        }).catch(() => {
-          // Autoplay blocked
-        });
+        }).catch(() => {});
+      } else if (isMuted) {
+        audioRef.current.muted = false;
+        setIsMuted(false);
       } else {
-        audioRef.current.pause();
-        setIsPlaying(false);
+        audioRef.current.muted = true;
         setIsMuted(true);
       }
     }
   };
 
-  if (!musicUrl) {
-    return (
-      <motion.button
-        className="music-btn opacity-50 cursor-not-allowed"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.5 }}
-        transition={{ delay: 2, type: 'spring' }}
-        title="No music configured"
-      >
-        <Music className="h-5 w-5" />
-      </motion.button>
-    );
-  }
-
   return (
     <>
-      <audio ref={audioRef} src={musicUrl} loop preload="auto" />
+      <audio ref={audioRef} src={backgroundMusic} loop preload="auto" />
       <motion.button
         className="music-btn"
         onClick={toggleMute}
@@ -59,9 +58,9 @@ const MusicPlayer = ({ musicUrl }: MusicPlayerProps) => {
         transition={{ delay: 2, type: 'spring' }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        title={isMuted ? 'Play music' : 'Mute music'}
+        title={autoplayBlocked ? 'Click to play music' : (isMuted ? 'Unmute' : 'Mute')}
       >
-        {isMuted ? (
+        {isMuted || autoplayBlocked ? (
           <VolumeX className="h-5 w-5" />
         ) : (
           <motion.div

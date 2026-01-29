@@ -40,9 +40,7 @@ const Index = () => {
       {introComplete && <FloatingHearts count={12} />}
 
       {/* Music Player */}
-      {introComplete && (
-        <MusicPlayer musicUrl={settings.background_music_url || undefined} />
-      )}
+      {introComplete && <MusicPlayer />}
 
       {/* Main Content */}
       <main className={introComplete ? 'opacity-100' : 'opacity-0'}>
