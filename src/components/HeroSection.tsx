@@ -51,7 +51,8 @@ const HeroSection = ({ title, subtitle, date }: HeroSectionProps) => {
           initial={{ opacity: 0, y: 40, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
-          className="font-romantic text-6xl md:text-8xl lg:text-9xl text-foreground mb-6 leading-tight"
+          className="font-romantic text-6xl md:text-8xl lg:text-9xl text-white mb-6 leading-tight drop-shadow-[0_4px_20px_rgba(255,255,255,0.4)]"
+          style={{ textShadow: '0 0 40px rgba(255,255,255,0.5), 0 0 80px rgba(255,255,255,0.3)' }}
         >
           {title}
         </motion.h1>
