@@ -38,7 +38,7 @@ const FloatingHearts = ({ count = 15, active = true }: FloatingHeartsProps) => {
       {hearts.map((heart) => (
         <motion.div
           key={heart.id}
-          className="absolute text-primary/60"
+          className="absolute text-beige/40"
           style={{ left: `${heart.x}%` }}
           initial={{ y: '110vh', opacity: 0, rotate: 0, scale: 0.5 }}
           animate={{
