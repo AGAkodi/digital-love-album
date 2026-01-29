@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Heart, ChevronDown } from 'lucide-react';
-import heroBg from '@/assets/hero-bg.jpg';
+import heroVideo from '@/assets/hero-video.mp4';
 
 interface HeroSectionProps {
   title: string;
@@ -15,12 +15,18 @@ const HeroSection = ({ title, subtitle, date }: HeroSectionProps) => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background" />
+      {/* Background Video */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.15]"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background" />
       </div>
 
       {/* Decorative glow */}
