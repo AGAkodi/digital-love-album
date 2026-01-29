@@ -16,13 +16,13 @@ const HeroSection = ({ title, subtitle, date }: HeroSectionProps) => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
-      <div className="absolute inset-0 bg-black">
+      <div className="absolute inset-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-contain brightness-[0.15]"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.15]"
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
