@@ -17,7 +17,7 @@ interface SiteSettings {
 const defaultSettings: SiteSettings = {
   hero_title: 'Happy Birthday, My Love',
   hero_subtitle: 'Every moment with you is a gift I treasure',
-  hero_date: 'February 14, 2026',
+  hero_date: '3rd February',
   love_note: 'From the moment I met you, my life became a beautiful love story. You are my sunshine, my forever, my everything. Happy Birthday to the most amazing person in my world. I love you more than words could ever express.',
   background_music_url: '',
 };
