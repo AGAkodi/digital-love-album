@@ -32,12 +32,12 @@ const HeroSection = ({ title, subtitle, date }: HeroSectionProps) => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="mb-6"
+          className="mb-8"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/80 backdrop-blur-sm text-secondary-foreground font-elegant text-sm tracking-wider">
-            <Heart className="h-4 w-4 text-primary" fill="currentColor" />
-            {date}
-            <Heart className="h-4 w-4 text-primary" fill="currentColor" />
+          <span className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-card/90 backdrop-blur-md text-foreground font-elegant text-lg md:text-xl tracking-wider shadow-lg border border-border/50">
+            <Heart className="h-5 w-5 text-primary" fill="currentColor" />
+            <span className="font-semibold">{date}</span>
+            <Heart className="h-5 w-5 text-primary" fill="currentColor" />
           </span>
         </motion.div>
 
