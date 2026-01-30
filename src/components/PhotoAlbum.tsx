@@ -219,31 +219,31 @@ const PhotoAlbum = () => {
               style={{ perspective: '2000px' }}
             >
               {/* Open book base - centered */}
-              <div className="flex justify-center items-center max-w-3xl mx-auto">
+              <div className="flex flex-col md:flex-row justify-center items-center max-w-3xl mx-auto">
                 {/* Left page - Happy Birthday */}
                 <div 
-                  className="w-[45%] aspect-[3/4] rounded-l-lg hidden md:block"
+                  className="w-full md:w-[45%] aspect-[4/3] md:aspect-[3/4] rounded-t-lg md:rounded-t-none md:rounded-l-lg"
                   style={{
                     background: 'linear-gradient(to right, #f5f0e6 0%, #ece5d8 100%)',
                     boxShadow: 'inset 5px 0 20px rgba(0,0,0,0.1)',
                   }}
                 >
-                  <div className="h-full flex flex-col items-center justify-center p-8">
+                  <div className="h-full flex flex-col items-center justify-center p-6 md:p-8">
                     <motion.div 
-                      className="text-7xl mb-8"
+                      className="text-5xl md:text-7xl mb-4 md:mb-8"
                       animate={{ y: [0, -5, 0] }}
                       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                     >
                       🎂
                     </motion.div>
                     <h3 
-                      className="font-romantic text-4xl lg:text-5xl text-amber-700 text-center leading-tight"
+                      className="font-romantic text-3xl md:text-4xl lg:text-5xl text-amber-700 text-center leading-tight"
                       style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.1)' }}
                     >
                       Happy Birthday
                     </h3>
-                    <div className="w-24 h-0.5 bg-amber-600/40 my-6" />
-                    <p className="font-elegant text-amber-700/60 text-center italic text-base">
+                    <div className="w-16 md:w-24 h-0.5 bg-amber-600/40 my-4 md:my-6" />
+                    <p className="font-elegant text-amber-700/60 text-center italic text-sm md:text-base">
                       Memory {currentPage + 1} of {mediaItems.length}
                     </p>
                   </div>
@@ -251,7 +251,7 @@ const PhotoAlbum = () => {
 
                 {/* Center spine */}
                 <div 
-                  className="hidden md:block w-4 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900"
+                  className="hidden md:block w-4 h-full bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900"
                   style={{
                     boxShadow: '0 0 20px rgba(0,0,0,0.5)',
                   }}
