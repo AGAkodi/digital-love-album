@@ -13,7 +13,7 @@ import video3 from '@/assets/gallery/video-3.mp4';
 import video4 from '@/assets/gallery/video-4.mp4';
 import video5 from '@/assets/gallery/video-5.mp4';
 import video6 from '@/assets/gallery/video-6.mp4';
-import video7 from '@/assets/gallery/video-7.mp4';
+import video7 from '@/assets/gallery/video-1.mp4';
 import video8 from '@/assets/gallery/video-8.mp4';
 import video9 from '@/assets/gallery/video-9.mp4';
 
@@ -77,8 +77,16 @@ const PhotoAlbum = () => {
   return (
     <section 
       id="gallery" 
-      className="py-20 px-6 bg-muted/30 min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center overflow-hidden py-20 px-6"
+      style={{
+        background: `linear-gradient(180deg, 
+          hsl(40, 20%, 97%) 0%, 
+          hsl(40, 15%, 94%) 50%,
+          hsl(40, 20%, 97%) 100%
+        )`,
+      }}
     >
+      {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -86,11 +94,26 @@ const PhotoAlbum = () => {
         transition={{ duration: 0.8 }}
         className="text-center mb-12"
       >
-        <h2 className="font-romantic text-5xl md:text-6xl text-foreground mb-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-4"
+        >
+          <span className="text-4xl">📖</span>
+        </motion.div>
+        <h2 
+          className="font-romantic text-5xl md:text-6xl mb-4"
+          style={{ color: 'hsl(35, 30%, 25%)' }}
+        >
           Your Memories
         </h2>
-        <p className="font-elegant text-xl text-muted-foreground italic">
-          A look at your memories from 20
+        <p 
+          className="font-elegant text-xl italic"
+          style={{ color: 'hsl(35, 20%, 50%)' }}
+        >
+          A collection of beautiful moments
         </p>
       </motion.div>
 
@@ -106,12 +129,27 @@ const PhotoAlbum = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{
+              background: `linear-gradient(180deg, 
+                hsl(40, 15%, 92%) 0%, 
+                hsl(40, 20%, 88%) 50%,
+                hsl(40, 15%, 92%) 100%
+              )`,
+            }}
             ref={containerRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
+            {/* Ambient light effect */}
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at 50% 30%, rgba(255,245,230,0.4) 0%, transparent 60%)',
+              }}
+            />
+
             <BookControls
               currentPage={currentPage}
               totalPages={mediaItems.length}
@@ -124,7 +162,11 @@ const PhotoAlbum = () => {
             />
 
             {/* Book container */}
-            <div 
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="flex items-center justify-center w-full h-full"
               style={{ perspective: '2000px' }}
             >
@@ -135,7 +177,7 @@ const PhotoAlbum = () => {
                 isFlipping={isFlipping}
                 flipDirection={flipDirection}
               />
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
