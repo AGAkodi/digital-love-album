@@ -73,7 +73,7 @@ const HeroSection = ({ title, subtitle, date }: HeroSectionProps) => {
           className="flex justify-center gap-4"
         >
           <button onClick={scrollToGallery} className="btn-romantic">
-            View Our Memories
+            View Your Memories
           </button>
         </motion.div>
 
