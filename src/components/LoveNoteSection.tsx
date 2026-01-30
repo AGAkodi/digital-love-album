@@ -115,7 +115,7 @@ const LoveNoteSection = ({ note }: LoveNoteSectionProps) => {
 
                 {/* Address label */}
                 <div 
-                  className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded"
+                  className="absolute bottom-6 left-6 px-4 py-2 rounded"
                   style={{
                     background: 'rgba(255,255,255,0.7)',
                   }}
