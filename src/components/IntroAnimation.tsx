@@ -1,12 +1,36 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
+const confettiColors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'];
+const confettiShapes = ['●', '■', '▲', '★', '♦'];
+
+interface ConfettiPiece {
+  id: number;
+  x: number;
+  color: string;
+  shape: string;
+  delay: number;
+  duration: number;
+  rotation: number;
+}
+
 interface IntroAnimationProps {
   isVisible: boolean;
   onComplete: () => void;
 }
 
 const IntroAnimation = ({ isVisible, onComplete }: IntroAnimationProps) => {
+  // Generate confetti pieces
+  const confettiPieces: ConfettiPiece[] = [...Array(50)].map((_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+    shape: confettiShapes[Math.floor(Math.random() * confettiShapes.length)],
+    delay: Math.random() * 2,
+    duration: 2 + Math.random() * 2,
+    rotation: Math.random() * 360,
+  }));
+
   return (
     <AnimatePresence onExitComplete={onComplete}>
       {isVisible && (
@@ -47,6 +71,33 @@ const IntroAnimation = ({ isVisible, onComplete }: IntroAnimationProps) => {
               Happy Birthday!
             </motion.p>
           </motion.div>
+
+          {/* Confetti Animation */}
+          {confettiPieces.map((piece) => (
+            <motion.div
+              key={`confetti-${piece.id}`}
+              className="absolute text-2xl pointer-events-none"
+              style={{
+                left: `${piece.x}%`,
+                top: '-5%',
+                color: piece.color,
+              }}
+              initial={{ y: 0, opacity: 0, rotate: 0, scale: 0 }}
+              animate={{
+                y: '120vh',
+                opacity: [0, 1, 1, 0.8, 0],
+                rotate: piece.rotation + 720,
+                scale: [0, 1, 1, 0.8],
+              }}
+              transition={{
+                duration: piece.duration,
+                delay: piece.delay,
+                ease: 'easeOut',
+              }}
+            >
+              {piece.shape}
+            </motion.div>
+          ))}
 
           {/* Floating hearts during intro */}
           {[...Array(8)].map((_, i) => (
