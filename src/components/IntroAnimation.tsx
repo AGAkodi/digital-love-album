@@ -24,27 +24,27 @@ const IntroAnimation = ({ isVisible, onComplete }: IntroAnimationProps) => {
             transition={{ duration: 2, ease: 'easeOut' }}
           >
             <motion.div
-              className="mb-6 flex justify-center"
+              className="mb-6 flex justify-center text-7xl md:text-9xl"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: 2, ease: 'easeInOut' }}
             >
-              <Heart className="h-20 w-20 text-primary" fill="currentColor" />
+              🎂
             </motion.div>
             <motion.h1
-              className="font-romantic text-5xl md:text-7xl text-foreground mb-4"
+              className="font-romantic text-7xl md:text-9xl text-foreground mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              A Love Story
+              21
             </motion.h1>
             <motion.p
-              className="font-elegant text-xl text-muted-foreground italic"
+              className="font-elegant text-2xl md:text-3xl text-muted-foreground italic"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 1 }}
             >
-              for you...
+              Happy Birthday!
             </motion.p>
           </motion.div>
 
