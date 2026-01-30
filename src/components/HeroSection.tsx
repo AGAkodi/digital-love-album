@@ -72,9 +72,15 @@ const HeroSection = ({ title, subtitle, date }: HeroSectionProps) => {
           transition={{ delay: 1.2 }}
           className="flex justify-center gap-4"
         >
-          <button onClick={scrollToGallery} className="btn-romantic">
+          <motion.button 
+            onClick={scrollToGallery} 
+            className="btn-romantic"
+            whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(0,0,0,0.2)' }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          >
             View Your Memories
-          </button>
+          </motion.button>
         </motion.div>
 
         {/* Floating hearts around title */}
