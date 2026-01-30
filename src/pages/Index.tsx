@@ -4,16 +4,14 @@ import FloatingHearts from '@/components/FloatingHearts';
 import MusicPlayer from '@/components/MusicPlayer';
 import HeroSection from '@/components/HeroSection';
 import PhotoAlbum from '@/components/PhotoAlbum';
-import HighlightsSection from '@/components/HighlightsSection';
+
 import LoveNoteSection from '@/components/LoveNoteSection';
-import { useHighlights } from '@/hooks/useHighlights';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [introComplete, setIntroComplete] = useState(false);
   
-  const { highlights, isLoading: highlightsLoading } = useHighlights();
   const { settings } = useSiteSettings();
 
   useEffect(() => {
@@ -52,8 +50,6 @@ const Index = () => {
         {/* Gallery Section - Photo Album */}
         <PhotoAlbum />
 
-        {/* Highlights Section */}
-        <HighlightsSection highlights={highlights} isLoading={highlightsLoading} />
 
         {/* Love Note Section */}
         <LoveNoteSection note={settings.love_note} />
