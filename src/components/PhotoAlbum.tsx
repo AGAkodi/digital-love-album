@@ -222,22 +222,28 @@ const PhotoAlbum = () => {
               <div className="flex justify-center items-center max-w-3xl mx-auto">
                 {/* Left page - Happy Birthday */}
                 <div 
-                  className="hidden md:block w-[45%] aspect-[3/4] rounded-l-lg"
+                  className="w-[45%] aspect-[3/4] rounded-l-lg hidden md:block"
                   style={{
                     background: 'linear-gradient(to right, #f5f0e6 0%, #ece5d8 100%)',
                     boxShadow: 'inset 5px 0 20px rgba(0,0,0,0.1)',
                   }}
                 >
                   <div className="h-full flex flex-col items-center justify-center p-8">
-                    <div className="text-6xl mb-6">🎂</div>
+                    <motion.div 
+                      className="text-7xl mb-8"
+                      animate={{ y: [0, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      🎂
+                    </motion.div>
                     <h3 
-                      className="font-romantic text-4xl text-amber-800 text-center leading-tight mb-4"
+                      className="font-romantic text-4xl lg:text-5xl text-amber-700 text-center leading-tight"
                       style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.1)' }}
                     >
                       Happy Birthday
                     </h3>
-                    <div className="w-16 h-0.5 bg-amber-600/30 my-4" />
-                    <p className="font-elegant text-amber-700/60 text-center italic text-sm">
+                    <div className="w-24 h-0.5 bg-amber-600/40 my-6" />
+                    <p className="font-elegant text-amber-700/60 text-center italic text-base">
                       Memory {currentPage + 1} of {mediaItems.length}
                     </p>
                   </div>
