@@ -3,10 +3,9 @@ import IntroAnimation from '@/components/IntroAnimation';
 import FloatingHearts from '@/components/FloatingHearts';
 import MusicPlayer from '@/components/MusicPlayer';
 import HeroSection from '@/components/HeroSection';
-import GallerySection from '@/components/GallerySection';
+import PhotoAlbum from '@/components/PhotoAlbum';
 import HighlightsSection from '@/components/HighlightsSection';
 import LoveNoteSection from '@/components/LoveNoteSection';
-import { useGallery } from '@/hooks/useGallery';
 import { useHighlights } from '@/hooks/useHighlights';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 
@@ -14,7 +13,6 @@ const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [introComplete, setIntroComplete] = useState(false);
   
-  const { items, isLoading: galleryLoading } = useGallery();
   const { highlights, isLoading: highlightsLoading } = useHighlights();
   const { settings } = useSiteSettings();
 
@@ -51,8 +49,8 @@ const Index = () => {
           date={settings.hero_date}
         />
 
-        {/* Gallery Section */}
-        <GallerySection items={items} isLoading={galleryLoading} />
+        {/* Gallery Section - Photo Album */}
+        <PhotoAlbum />
 
         {/* Highlights Section */}
         <HighlightsSection highlights={highlights} isLoading={highlightsLoading} />
