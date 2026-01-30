@@ -220,7 +220,7 @@ const PhotoAlbum = () => {
             >
               {/* Open book base */}
               <div className="relative flex justify-center">
-                {/* Left page (static back) */}
+                {/* Left page - Happy Birthday */}
                 <div 
                   className="hidden md:block w-[45%] aspect-[3/4] rounded-l-lg"
                   style={{
@@ -228,9 +228,17 @@ const PhotoAlbum = () => {
                     boxShadow: 'inset 5px 0 20px rgba(0,0,0,0.1)',
                   }}
                 >
-                  <div className="h-full flex items-center justify-center p-8">
-                    <p className="font-elegant text-amber-800/50 text-center italic">
-                      Page {currentPage + 1} of {mediaItems.length}
+                  <div className="h-full flex flex-col items-center justify-center p-8">
+                    <div className="text-6xl mb-6">🎂</div>
+                    <h3 
+                      className="font-romantic text-4xl text-amber-800 text-center leading-tight mb-4"
+                      style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.1)' }}
+                    >
+                      Happy Birthday
+                    </h3>
+                    <div className="w-16 h-0.5 bg-amber-600/30 my-4" />
+                    <p className="font-elegant text-amber-700/60 text-center italic text-sm">
+                      Memory {currentPage + 1} of {mediaItems.length}
                     </p>
                   </div>
                 </div>
