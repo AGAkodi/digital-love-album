@@ -81,10 +81,10 @@ const PhotoAlbum = () => {
         className="text-center mb-12"
       >
         <h2 className="font-romantic text-5xl md:text-6xl text-foreground mb-4">
-          Our Memories
+          Your Memories
         </h2>
         <p className="font-elegant text-xl text-muted-foreground italic">
-          Click the book to open our story
+          A look at your memories from 20
         </p>
       </motion.div>
 
