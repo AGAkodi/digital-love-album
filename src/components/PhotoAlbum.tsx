@@ -213,13 +213,13 @@ const PhotoAlbum = () => {
               <ChevronRight className="h-6 w-6 md:h-8 md:w-8" />
             </button>
 
-            {/* Book container */}
+            {/* Book container - centered */}
             <div 
-              className="relative w-full max-w-4xl px-4 md:px-8"
+              className="flex items-center justify-center w-full h-full"
               style={{ perspective: '2000px' }}
             >
-              {/* Open book base */}
-              <div className="relative flex justify-center">
+              {/* Open book base - centered */}
+              <div className="flex justify-center items-center max-w-3xl mx-auto">
                 {/* Left page - Happy Birthday */}
                 <div 
                   className="hidden md:block w-[45%] aspect-[3/4] rounded-l-lg"
