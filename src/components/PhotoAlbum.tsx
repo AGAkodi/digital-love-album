@@ -215,7 +215,7 @@ const PhotoAlbum = () => {
 
             {/* Book container */}
             <div 
-              className="relative w-full max-w-3xl mx-16"
+              className="relative w-full max-w-4xl px-4 md:px-8"
               style={{ perspective: '2000px' }}
             >
               {/* Open book base */}
