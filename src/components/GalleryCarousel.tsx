@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -39,14 +39,38 @@ const GalleryCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
   const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
 
+  // Play video at current index
+  const playCurrentVideo = useCallback(() => {
+    const currentItem = mediaItems[selectedIndex];
+    if (currentItem?.type === 'video') {
+      const video = videoRefs.current[selectedIndex];
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }
+    }
+  }, [selectedIndex]);
+
+  // Pause all videos except current
+  const pauseOtherVideos = useCallback(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video && index !== selectedIndex) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    });
+  }, [selectedIndex]);
+
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    const newIndex = emblaApi.selectedScrollSnap();
+    setSelectedIndex(newIndex);
   }, [emblaApi]);
 
   useEffect(() => {
@@ -58,19 +82,39 @@ const GalleryCarousel = () => {
     };
   }, [emblaApi, onSelect]);
 
-  // Auto-play functionality
+  // Handle video playback when slide changes
+  useEffect(() => {
+    pauseOtherVideos();
+    playCurrentVideo();
+  }, [selectedIndex, pauseOtherVideos, playCurrentVideo]);
+
+  // Auto-play slideshow
   useEffect(() => {
     if (!isPlaying || !emblaApi) return;
-    const interval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isPlaying, emblaApi]);
+    
+    const currentItem = mediaItems[selectedIndex];
+    const video = videoRefs.current[selectedIndex];
+    
+    // If current item is a video, wait for it to end before advancing
+    if (currentItem?.type === 'video' && video) {
+      const handleEnded = () => {
+        emblaApi.scrollNext();
+      };
+      video.addEventListener('ended', handleEnded);
+      return () => video.removeEventListener('ended', handleEnded);
+    } else {
+      // For images, advance after 4 seconds
+      const interval = setTimeout(() => {
+        emblaApi.scrollNext();
+      }, 4000);
+      return () => clearTimeout(interval);
+    }
+  }, [isPlaying, emblaApi, selectedIndex]);
 
   return (
     <section
       id="gallery"
-      className="min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-6"
+      className="min-h-screen flex flex-col items-center justify-center py-16 px-4 md:px-6"
       style={{
         background: `linear-gradient(180deg, 
           hsl(40, 15%, 96%) 0%, 
@@ -85,7 +129,7 @@ const GalleryCarousel = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="text-center mb-12"
+        className="text-center mb-8"
       >
         <h2
           className="font-romantic text-5xl md:text-6xl mb-4"
@@ -127,11 +171,11 @@ const GalleryCarousel = () => {
       </motion.div>
 
       {/* Carousel Container */}
-      <div className="w-full max-w-5xl relative">
+      <div className="w-full max-w-4xl relative">
         {/* Navigation Buttons */}
         <button
           onClick={scrollPrev}
-          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+          className="absolute left-0 md:-left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
           style={{
             background: 'linear-gradient(135deg, hsl(40, 20%, 98%), hsl(40, 15%, 92%))',
             boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
@@ -142,7 +186,7 @@ const GalleryCarousel = () => {
 
         <button
           onClick={scrollNext}
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+          className="absolute right-0 md:-right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
           style={{
             background: 'linear-gradient(135deg, hsl(40, 20%, 98%), hsl(40, 15%, 92%))',
             boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
@@ -152,54 +196,49 @@ const GalleryCarousel = () => {
         </button>
 
         {/* Embla Carousel */}
-        <div className="overflow-hidden rounded-3xl" ref={emblaRef}>
+        <div className="overflow-hidden rounded-2xl mx-12 md:mx-0" ref={emblaRef}>
           <div className="flex">
             {mediaItems.map((item, index) => (
               <div
                 key={item.id}
-                className="flex-[0_0_85%] md:flex-[0_0_70%] min-w-0 px-2 md:px-4"
+                className="flex-[0_0_100%] min-w-0 px-2"
               >
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0 }}
                   animate={{
-                    opacity: selectedIndex === index ? 1 : 0.5,
-                    scale: selectedIndex === index ? 1 : 0.9,
+                    opacity: selectedIndex === index ? 1 : 0.3,
                   }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                   className="relative rounded-2xl overflow-hidden"
                   style={{
-                    boxShadow:
-                      selectedIndex === index
-                        ? '0 25px 60px rgba(0,0,0,0.2)'
-                        : '0 10px 30px rgba(0,0,0,0.1)',
+                    boxShadow: '0 20px 50px rgba(0,0,0,0.2)',
                   }}
                 >
                   {/* Frame Border */}
                   <div
                     className="absolute inset-0 rounded-2xl pointer-events-none z-10"
                     style={{
-                      border: '8px solid',
-                      borderColor: 'hsl(40, 20%, 95%)',
+                      border: '6px solid hsl(40, 20%, 95%)',
                       boxShadow: 'inset 0 0 20px rgba(0,0,0,0.05)',
                     }}
                   />
 
-                  {/* Media Content */}
-                  <div className="aspect-[4/3] bg-muted">
+                  {/* Media Content - 16:9 aspect ratio for full view */}
+                  <div className="aspect-video bg-black">
                     {item.type === 'video' ? (
                       <video
+                        ref={(el) => { videoRefs.current[index] = el; }}
                         src={item.src}
-                        className="w-full h-full object-cover"
-                        autoPlay={selectedIndex === index}
+                        className="w-full h-full object-contain bg-black"
                         muted
-                        loop
                         playsInline
+                        loop={!isPlaying}
                       />
                     ) : (
                       <img
                         src={item.src}
                         alt={item.caption || `Memory ${item.id}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain bg-black"
                       />
                     )}
                   </div>
@@ -212,10 +251,10 @@ const GalleryCarousel = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3, delay: 0.2 }}
-                        className="absolute bottom-0 left-0 right-0 p-6"
+                        className="absolute bottom-0 left-0 right-0 p-4 md:p-6"
                         style={{
                           background:
-                            'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+                            'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
                         }}
                       >
                         <p className="text-white font-elegant text-lg italic text-center">
@@ -231,7 +270,7 @@ const GalleryCarousel = () => {
         </div>
 
         {/* Dot Indicators */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-2 mt-6">
           {mediaItems.map((_, index) => (
             <button
               key={index}
@@ -240,10 +279,10 @@ const GalleryCarousel = () => {
             >
               <motion.div
                 animate={{
-                  width: selectedIndex === index ? 32 : 10,
+                  width: selectedIndex === index ? 28 : 8,
                   opacity: selectedIndex === index ? 1 : 0.4,
                 }}
-                className="h-2.5 rounded-full"
+                className="h-2 rounded-full"
                 style={{
                   background:
                     selectedIndex === index
@@ -256,7 +295,7 @@ const GalleryCarousel = () => {
         </div>
 
         {/* Counter */}
-        <div className="text-center mt-6">
+        <div className="text-center mt-4">
           <span
             className="font-body text-sm tracking-wider"
             style={{ color: 'hsl(35, 15%, 50%)' }}
