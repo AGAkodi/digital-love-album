@@ -3,8 +3,7 @@ import IntroAnimation from '@/components/IntroAnimation';
 import FloatingHearts from '@/components/FloatingHearts';
 import MusicPlayer from '@/components/MusicPlayer';
 import HeroSection from '@/components/HeroSection';
-import PhotoAlbum from '@/components/PhotoAlbum';
-
+import GalleryCarousel from '@/components/GalleryCarousel';
 import LoveNoteSection from '@/components/LoveNoteSection';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 
@@ -47,9 +46,8 @@ const Index = () => {
           date={settings.hero_date}
         />
 
-        {/* Gallery Section - Photo Album */}
-        <PhotoAlbum />
-
+        {/* Gallery Carousel */}
+        <GalleryCarousel />
 
         {/* Love Note Section */}
         <LoveNoteSection note={settings.love_note} />
