@@ -182,7 +182,7 @@ const GalleryCarousel = () => {
     <>
       <section
         id="gallery"
-        className="min-h-screen flex flex-col items-center justify-center py-8 pb-4 px-4 md:px-6"
+        className="flex flex-col items-center justify-center py-8 px-4 md:px-6"
         style={{
           background: `linear-gradient(180deg, 
             hsl(40, 15%, 96%) 0%, 
