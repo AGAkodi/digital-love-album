@@ -197,16 +197,16 @@ const GalleryCarousel = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-8"
+          className="text-center mb-6 sm:mb-8"
         >
           <h2
-            className="font-romantic text-5xl md:text-6xl mb-4"
+            className="font-romantic text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4"
             style={{ color: 'hsl(35, 25%, 25%)' }}
           >
             Your Memories
           </h2>
           <p
-            className="font-elegant text-xl italic mb-6"
+            className="font-elegant text-lg sm:text-xl italic mb-4 sm:mb-6 px-4"
             style={{ color: 'hsl(35, 15%, 50%)' }}
           >
             A collection of some of your memories from 20
@@ -215,7 +215,7 @@ const GalleryCarousel = () => {
           {/* Slideshow Toggle */}
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300"
+            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300"
             style={{
               background: isPlaying
                 ? 'linear-gradient(135deg, hsl(35, 30%, 40%), hsl(35, 25%, 35%))'
@@ -226,45 +226,45 @@ const GalleryCarousel = () => {
           >
             {isPlaying ? (
               <>
-                <Pause className="w-5 h-5" />
-                <span className="font-body text-sm font-medium">Pause Slideshow</span>
+                <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="font-body text-xs sm:text-sm font-medium">Pause Slideshow</span>
               </>
             ) : (
               <>
-                <Play className="w-5 h-5" />
-                <span className="font-body text-sm font-medium">Play Slideshow</span>
+                <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="font-body text-xs sm:text-sm font-medium">Play Slideshow</span>
               </>
             )}
           </button>
         </motion.div>
 
         {/* Carousel Container */}
-        <div className="w-full max-w-4xl relative">
+        <div className="w-full max-w-4xl relative px-2 sm:px-0">
           {/* Navigation Buttons */}
           <button
             onClick={scrollPrev}
-            className="absolute left-0 md:-left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+            className="absolute -left-2 sm:left-0 md:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
             style={{
               background: 'linear-gradient(135deg, hsl(40, 20%, 98%), hsl(40, 15%, 92%))',
               boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
             }}
           >
-            <ChevronLeft className="w-6 h-6" style={{ color: 'hsl(35, 25%, 30%)' }} />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: 'hsl(35, 25%, 30%)' }} />
           </button>
 
           <button
             onClick={scrollNext}
-            className="absolute right-0 md:-right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+            className="absolute -right-2 sm:right-0 md:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
             style={{
               background: 'linear-gradient(135deg, hsl(40, 20%, 98%), hsl(40, 15%, 92%))',
               boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
             }}
           >
-            <ChevronRight className="w-6 h-6" style={{ color: 'hsl(35, 25%, 30%)' }} />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: 'hsl(35, 25%, 30%)' }} />
           </button>
 
           {/* Embla Carousel */}
-          <div className="overflow-hidden rounded-2xl mx-12 md:mx-0" ref={emblaRef}>
+          <div className="overflow-hidden rounded-xl sm:rounded-2xl mx-10 sm:mx-12 md:mx-0" ref={emblaRef}>
             <div className="flex touch-pan-y">
               {mediaItems.map((item, index) => (
                 <div
@@ -352,7 +352,7 @@ const GalleryCarousel = () => {
           </div>
 
           {/* Dot Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-6 flex-wrap px-4">
             {mediaItems.map((_, index) => (
               <button
                 key={index}
@@ -361,10 +361,10 @@ const GalleryCarousel = () => {
               >
                 <motion.div
                   animate={{
-                    width: selectedIndex === index ? 28 : 8,
+                    width: selectedIndex === index ? 20 : 6,
                     opacity: selectedIndex === index ? 1 : 0.4,
                   }}
-                  className="h-2 rounded-full"
+                  className="h-1.5 sm:h-2 rounded-full"
                   style={{
                     background:
                       selectedIndex === index
@@ -377,9 +377,9 @@ const GalleryCarousel = () => {
           </div>
 
           {/* Counter */}
-          <div className="text-center mt-4">
+          <div className="text-center mt-3 sm:mt-4">
             <span
-              className="font-body text-sm tracking-wider"
+              className="font-body text-xs sm:text-sm tracking-wider"
               style={{ color: 'hsl(35, 15%, 50%)' }}
             >
               {selectedIndex + 1} / {mediaItems.length}
