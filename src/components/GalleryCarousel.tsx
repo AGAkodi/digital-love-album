@@ -203,13 +203,13 @@ const GalleryCarousel = () => {
             className="font-romantic text-5xl md:text-6xl mb-4"
             style={{ color: 'hsl(35, 25%, 25%)' }}
           >
-            Our Memories
+            Your Memories
           </h2>
           <p
             className="font-elegant text-xl italic mb-6"
             style={{ color: 'hsl(35, 15%, 50%)' }}
           >
-            A collection of beautiful moments
+            A collection of some of your memories from 20
           </p>
 
           {/* Slideshow Toggle */}
