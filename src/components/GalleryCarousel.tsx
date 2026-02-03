@@ -306,7 +306,7 @@ const GalleryCarousel = () => {
                     </div>
 
                     {/* Media Content */}
-                    <div className="aspect-video bg-black">
+                    <div className="aspect-[16/14] md:aspect-[16/12] bg-black">
                       {item.type === 'video' ? (
                         <video
                           ref={(el) => { videoRefs.current[index] = el; }}
@@ -452,6 +452,7 @@ const GalleryCarousel = () => {
                   className="max-w-full max-h-full object-contain rounded-lg"
                   controls
                   autoPlay
+                  muted
                   playsInline
                 />
               ) : (
