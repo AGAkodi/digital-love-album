@@ -16,7 +16,7 @@ const LoveNoteSection = ({ note }: LoveNoteSectionProps) => {
   const paragraphs = note.split('\n\n').filter(p => p.trim());
 
   return (
-    <section className="relative py-24 px-6 bg-romantic overflow-hidden min-h-[80vh] flex flex-col items-center justify-center">
+    <section className="relative py-12 px-6 bg-romantic overflow-hidden min-h-[60vh] flex flex-col items-center justify-center">
       {/* Decorative background hearts */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(8)].map((_, i) => (
